@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Sourcing Guide: AI & Law Position</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: A tab-based single-page application. The three main sourcing categories from the report (Fellowships, Academia, Industry) are presented as distinct, clickable tabs. This structure was chosen to break down the information into digestible, thematic sections, preventing information overload and allowing committee members to focus on one sourcing channel at a time. This mirrors the logical structure of the source document while making it interactive and more user-friendly than a static document. The user flow is simple: select a tab to view the relevant list of potential sources. -->
+    <!-- Visualization & Content Choices: The application uses a card-based layout within each tab to present the different institutions and organizations. Cards are ideal for chunking discrete pieces of information. For sections with sub-categories (like "Interdisciplinary Hubs"), an accordion interaction is used to keep the interface clean and allow users to drill down into specifics. This avoids a long, cluttered page. Icons are used to visually reinforce categories. All interactions are handled with vanilla JavaScript, and no data visualization libraries are needed as the source is qualitative. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f7f4;
+        }
+        .tab-active {
+            border-color: #0d9488;
+            background-color: #ccfbf1;
+            color: #134e4a;
+            font-weight: 600;
+        }
+        .tab-inactive {
+            border-color: transparent;
+            color: #57534e;
+        }
+        .content-panel {
+            display: none;
+        }
+        .content-panel.active {
+            display: block;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 1000px; /* Adjust as needed */
+        }
+        .accordion-icon {
+            transition: transform 0.3s ease-in-out;
+        }
+        .accordion-button.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="text-stone-800">
+
+    <div class="container mx-auto max-w-5xl px-4 py-8 md:py-12">
+        
+        <header class="text-center mb-10">
+            <h1 class="text-3xl md:text-4xl font-bold text-teal-900">Non-Traditional Sourcing Guide</h1>
+            <p class="mt-2 text-lg text-stone-600">For the PFF Position in Artificial Intelligence & Law</p>
+        </header>
+
+        <main>
+            <div class="mb-8 border-b border-stone-300">
+                <nav class="-mb-px flex flex-wrap justify-center gap-2 sm:gap-4" aria-label="Tabs">
+                    <button class="tab-btn shrink-0 border-b-2 px-3 py-3 text-sm sm:text-base transition-colors duration-200 ease-in-out" data-tab="fellowships">
+                        🎓 Fellowships & Postdocs
+                    </button>
+                    <button class="tab-btn shrink-0 border-b-2 px-3 py-3 text-sm sm:text-base transition-colors duration-200 ease-in-out" data-tab="academia">
+                        🏛️ Interdisciplinary Academia
+                    </button>
+                    <button class="tab-btn shrink-0 border-b-2 px-3 py-3 text-sm sm:text-base transition-colors duration-200 ease-in-out" data-tab="industry">
+                        🏢 Industry & Public Interest
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Fellowships & Postdocs Panel -->
+            <div id="fellowships" class="content-panel">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-teal-800">Key Postdoctoral & Fellowship Programs</h2>
+                    <p class="mt-2 text-stone-600 max-w-2xl mx-auto">These programs are well-known incubators for the next generation of technology law scholars. Reviewing their current fellows and recent alumni could provide a list of exceptionally well-qualified candidates.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-teal-900">Yale Law School</h3>
+                        <p class="font-medium text-stone-700">Information Society Project (ISP)</p>
+                        <p class="mt-2 text-sm text-stone-600">One of the most prestigious fellowships, hosting a mix of J.D.s and Ph.D.s working at the intersection of law, technology, and society.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-teal-900">Princeton University</h3>
+                        <p class="font-medium text-stone-700">Center for Information Technology Policy (CITP)</p>
+                        <p class="mt-2 text-sm text-stone-600">Brings together technologists, social scientists, and legal scholars. Fellows often produce cutting-edge work on AI governance.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-teal-900">Stanford Law School</h3>
+                        <p class="font-medium text-stone-700">Center for Internet and Society (CIS)</p>
+                        <p class="mt-2 text-sm text-stone-600">A long-standing leader with a track record of producing excellent scholars. Their residential and non-residential fellows are worth a close look.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-teal-900">NYU School of Law</h3>
+                        <p class="font-medium text-stone-700">Information Law Institute (ILI)</p>
+                        <p class="mt-2 text-sm text-stone-600">Sponsors fellows and hosts events that attract leading thinkers on data, privacy, and AI. Their network is a rich source of potential candidates.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-200 hover:shadow-md transition-shadow duration-300">
+                        <h3 class="font-bold text-lg text-teal-900">Cornell Tech</h3>
+                        <p class="font-medium text-stone-700">Digital Life Initiative (DLI)</p>
+                        <p class="mt-2 text-sm text-stone-600">Focused on ethics, policy, and quality of life in digital society. Postdoctoral fellows are often engaged in directly relevant research.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interdisciplinary Academia Panel -->
+            <div id="academia" class="content-panel">
+                <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-teal-800">Interdisciplinary Academic Hubs</h2>
+                    <p class="mt-2 text-stone-600 max-w-2xl mx-auto">To find a truly interdisciplinary candidate, we can look at graduates and junior faculty from these leading non-law school programs and conferences.</p>
+                </div>
+                <div class="space-y-4">
+                    <!-- Accordion Item 1 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-stone-200">
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-teal-900">
+                            <span>Information Schools (iSchools)</span>
+                            <span class="accordion-icon text-teal-700 text-2xl">▾</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 pt-0 text-stone-700">
+                                <p class="mb-4 text-sm">These departments blend social science and computer science. Their Ph.D. graduates often have the technical and policy-oriented background we are seeking.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li>UC Berkeley School of Information</li>
+                                    <li>University of Michigan School of Information</li>
+                                    <li>University of Washington Information School</li>
+                                    <li>Carnegie Mellon's School of Computer Science (societal computing)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-stone-200">
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-teal-900">
+                            <span>Science, Technology, and Society (STS) Programs</span>
+                            <span class="accordion-icon text-teal-700 text-2xl">▾</span>
+                        </button>
+                        <div class="accordion-content">
+                             <div class="p-5 pt-0 text-stone-700">
+                                <p class="mb-4 text-sm">These programs specialize in the societal implications of technology. We may find candidates with a J.D. who have pursued a Ph.D. in this area.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li>MIT</li>
+                                    <li>Cornell</li>
+                                    <li>UC Davis</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 3 -->
+                     <div class="bg-white rounded-lg shadow-sm border border-stone-200 p-5">
+                        <h3 class="font-semibold text-teal-900">Key Academic Conferences</h3>
+                        <p class="mt-2 text-sm text-stone-700">The <span class="font-bold">ACM Conference on Fairness, Accountability, and Transparency (FAccT)</span> is the premier academic venue for this type of research. Reviewing proceedings from the last few years could yield a list of dozens of potential candidates, including junior scholars and Ph.D. students on the verge of graduating.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry & Public Interest Panel -->
+            <div id="industry" class="content-panel">
+                 <div class="text-center mb-8">
+                    <h2 class="text-2xl font-semibold text-teal-800">Talent from Industry & Public Interest</h2>
+                    <p class="mt-2 text-stone-600 max-w-2xl mx-auto">Some of the most knowledgeable experts on how AI is "built, deployed, and governed" are currently working outside of academia. These channels can help us find them.</p>
+                </div>
+                 <div class="space-y-4">
+                    <!-- Accordion Item 1 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-stone-200">
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-teal-900">
+                            <span>Industry Research & Policy Teams</span>
+                            <span class="accordion-icon text-teal-700 text-2xl">▾</span>
+                        </button>
+                        <div class="accordion-content">
+                            <div class="p-5 pt-0 text-stone-700">
+                                <p class="mb-4 text-sm">Many tech companies have dedicated teams working on responsible AI. Exploring their staff could reveal individuals with strong academic backgrounds who may be interested in moving to a faculty position.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li><span class="font-semibold">Microsoft Research:</span> FATE (Fairness, Accountability, Transparency, and Ethics in AI) group.</li>
+                                    <li><span class="font-semibold">Google:</span> Responsible AI and Human-Centered Technology (RAI-HCT) organization.</li>
+                                    <li><span class="font-semibold">Other sources:</span> Authors of policy papers and blog posts from companies like OpenAI, Anthropic, and Meta.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accordion Item 2 -->
+                    <div class="bg-white rounded-lg shadow-sm border border-stone-200">
+                        <button class="accordion-button w-full flex justify-between items-center p-5 text-left font-semibold text-teal-900">
+                            <span>Think Tanks & Advocacy Groups</span>
+                            <span class="accordion-icon text-teal-700 text-2xl">▾</span>
+                        </button>
+                        <div class="accordion-content">
+                             <div class="p-5 pt-0 text-stone-700">
+                                <p class="mb-4 text-sm">These organizations are often staffed by J.D.s and Ph.D.s doing policy-relevant research.</p>
+                                <ul class="list-disc list-inside space-y-2 text-sm">
+                                    <li><span class="font-semibold">The AI Now Institute:</span> A leading research center on the social implications of AI.</li>
+                                    <li><span class="font-semibold">Center for Democracy & Technology (CDT):</span> Teams working on AI governance and privacy are excellent.</li>
+                                    <li><span class="font-semibold">EFF & EPIC:</span> Staff attorneys and technologists with deep expertise in legal/constitutional questions raised by AI.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="text-center mt-12 text-sm text-stone-500">
+            <p>University of Houston Law Center | Faculty Appointments Committee</p>
+        </footer>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panels = document.querySelectorAll('.content-panel');
+            const accordions = document.querySelectorAll('.accordion-button');
+
+            function switchTab(tabId) {
+                tabs.forEach(tab => {
+                    if (tab.dataset.tab === tabId) {
+                        tab.classList.add('tab-active');
+                        tab.classList.remove('tab-inactive');
+                    } else {
+                        tab.classList.remove('tab-active');
+                        tab.classList.add('tab-inactive');
+                    }
+                });
+
+                panels.forEach(panel => {
+                    if (panel.id === tabId) {
+                        panel.classList.add('active');
+                    } else {
+                        panel.classList.remove('active');
+                    }
+                });
+            }
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    switchTab(tab.dataset.tab);
+                });
+            });
+
+            accordions.forEach(accordion => {
+                accordion.addEventListener('click', () => {
+                    const content = accordion.nextElementSibling;
+                    accordion.classList.toggle('open');
+                    content.classList.toggle('open');
+                });
+            });
+
+            // Set initial state
+            switchTab('fellowships');
+        });
+    </script>
+
+</body>
+</html>
